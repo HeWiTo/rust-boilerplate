@@ -1,0 +1,21 @@
+[package]
+name = "infrastructure"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { workspace = true }
+serde = { workspace = true }
+async-trait = { workspace = true }
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "postgres", "uuid", "chrono"] }
+mongodb = "2.5"
+lettre = "0.10"
+reqwest = { version = "0.11", features = ["json"] }
+opentelemetry = { version = "0.19", features = ["rt-tokio"] }
+opentelemetry-jaeger = "0.18"
+tracing-opentelemetry = "0.18"
+oauth2 = "4.3"
+core = { path = "../core" }
