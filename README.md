@@ -1,4 +1,4 @@
-# Rust SaaS Boilerplate
+# Rust Boilerplate
 
 This is a comprehensive boilerplate built with Rust. It provides a solid foundation for building scalable, secure, and feature-rich applications.
 
@@ -72,15 +72,51 @@ rust-boilerplate/
 ├── docker-compose.yml
 ├── crates/
 │   ├── api/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   │       ├── main.rs
+│   │       ├── config.rs
+│   │       ├── routes/
+│   │       ├── handlers/
+│   │       ├── middleware/
+│   │       └── errors.rs
 │   ├── core/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   │       ├── lib.rs
+│   │       ├── entities/
+│   │       ├── repositories/
+│   │       └── use_cases/
 │   ├── infrastructure/
+│   │   ├── Cargo.toml
+│   │   └── src/
+│   │       ├── lib.rs
+│   │       ├── database/
+│   │       ├── auth/
+│   │       ├── email/
+│   │       ├── payment/
+│   │       └── telemetry/
 │   └── wasm/
+│       ├── Cargo.toml
+│       └── src/
+│           └── lib.rs
 ├── templates/
+│   └── ... (Askama templates)
 ├── migrations/
+│   └── ... (Database migrations)
 ├── tests/
+│   ├── integration/
+│   └── e2e/
 ├── docs/
+│   └── api/
 ├── scripts/
 └── frontend/
+    ├── package.json
+    ├── src/
+    │   ├── components/
+    │   ├── pages/
+    │   └── styles/
+    └── public/
 ```
 
 ## Documentation
