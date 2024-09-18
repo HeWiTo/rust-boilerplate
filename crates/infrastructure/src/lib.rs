@@ -14,6 +14,16 @@ pub use email::EmailService;
 pub use payment::PaymentService;
 pub use telemetry::init_telemetry;
 
+pub enum EmailProviderConfig {
+    Mailgun { api_key: String, domain: String },
+    SendGrid { api_key: String },
+}
+
+pub enum PaymentProviderConfig {
+    Stripe(String), // API Key
+    LemonSqueezy(String), // API Key
+}
+
 // Infrastructure configuration
 pub struct InfrastructureConfig {
     pub database_url: String,
@@ -21,8 +31,8 @@ pub struct InfrastructureConfig {
     pub jwt_secret: String,
     pub google_client_id: String,
     pub google_client_secret: String,
-    pub email_service_api_key: String,
-    pub payment_service_api_key: String,
+    pub email_provider: EmailProviderConfig,
+    pub payment_provider: PaymentProviderConfig,
     // Add more configuration fields as needed
 }
 
@@ -42,16 +52,20 @@ impl Infrastructure {
             config.google_client_id,
             config.google_client_secret,
         );
-        let email = EmailService::new(config.email_service_api_key);
-        let payment = PaymentService::new(config.payment_service_api_key);
-        let cache = CacheService::new().await?;
+        let email = match config.email_provider {
+            EmailProviderConfig::Mailgun { api_key, domain } => EmailService::new_mailgun(api_key, domain),
+            EmailProviderConfig::SendGrid { api_key } => EmailService::new_sendgrid(api_key),
+        };
+        let payment = match config.payment_provider {
+            PaymentProviderConfig::Stripe(api_key) => PaymentService::new_stripe(api_key),
+            PaymentProviderConfig::LemonSqueezy(api_key) => PaymentService::new_lemon_squeezy(api_key),
+        };
 
         Ok(Self {
             db,
             auth,
             email,
             payment,
-            cache,
         })
     }
 }
