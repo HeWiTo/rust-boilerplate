@@ -63,7 +63,7 @@ This is a comprehensive boilerplate built with Rust. It provides a solid foundat
 ## Project Structure
 
 ```
-saas-boilerplate/
+rust-boilerplate/
 ├── Cargo.toml
 ├── Cargo.lock
 ├── .gitignore
