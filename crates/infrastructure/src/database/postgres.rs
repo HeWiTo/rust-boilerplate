@@ -17,6 +17,19 @@ impl PgUserRepository {
 
         Ok(Self { pool })
     }
+
+    pub async fn get_user_by_email_and_tenant(&self, email: &str, tenant_id: Uuid) -> Result<Option<User>> {
+        let user = sqlx::query_as!(
+            User,
+            "SELECT id, email, password_hash FROM users WHERE email = $1 AND tenant_id = $2",
+            email,
+            tenant_id
+        )
+        .fetch_optional(&self.pool)
+        .await?;
+
+        Ok(user)
+    }
 }
 
 #[async_trait]
