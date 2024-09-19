@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{month_year}} Monthly Summary</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>{{month_year}} Monthly Summary for {{user_name}}</h1>
+    
+    <h2>Usage Statistics</h2>
+    <table>
+        <tr>
+            <th>Metric</th>
+            <th>Value</th>
+        </tr>
+        {{#each usage_stats}}
+        <tr>
+            <td>{{this.metric}}</td>
+            <td>{{this.value}}</td>
+        </tr>
+        {{/each}}
+    </table>
+
+    <h2>Key Performance Indicators</h2>
+    <table>
+        <tr>
+            <th>KPI</th>
+            <th>This Month</th>
+            <th>Previous Month</th>
+            <th>Change</th>
+        </tr>
+        {{#each kpis}}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.current}}</td>
+            <td>{{this.previous}}</td>
+            <td>{{this.change}}</td>
+        </tr>
+        {{/each}}
+    </table>
+
+    <h2>Recommendations</h2>
+    <ul>
+    {{#each recommendations}}
+        <li>{{this}}</li>
+    {{/each}}
+    </ul>
+
+    <p>Thank you for using {{app_name}}. If you have any questions about this report, please contact our support team.</p>
+</body>
+</html>

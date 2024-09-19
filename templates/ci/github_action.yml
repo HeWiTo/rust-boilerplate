@@ -1,0 +1,32 @@
+name: {{workflow_name}}
+
+on:
+  push:
+    branches: [ {{branch_name}} ]
+  pull_request:
+    branches: [ {{branch_name}} ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: cargo build --verbose
+    - name: Run tests
+      run: cargo test --verbose
+    {{#if additional_steps}}
+    {{additional_steps}}
+    {{/if}}
+
+  {{#if deploy}}
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    {{deploy_steps}}
+  {{/if}}
